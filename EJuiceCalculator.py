@@ -13,6 +13,8 @@ if nicLevel > 0:
     nicBase = int(input("Input nicotine solution strength: "))
     nicResult = round(((nicLevel / nicBase) * batchAmount), 2)
     #print(nicResult)
+else:
+    nicResult = 0
 
 # Initiate flavor list
 flavorList = list()
