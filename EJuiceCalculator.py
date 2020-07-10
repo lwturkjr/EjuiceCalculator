@@ -3,46 +3,64 @@
 # I will eventually make a GUI for this with tkinter, hopefully
 
 # Get batch amount
-batchAmount = int(input("Input the total amount of E-Juice you wish to make (ML): "))
+batch_amount = int(input("Input the total amount of E-Juice you wish to make (ML): "))
 
 # Get desired nic level
-nicLevel = int(input("Input desired nicotine strength of the E-Juice: "))
+nic_level = int(input("Input desired nicotine strength of the E-Juice: "))
 
 # If nic level is 0 don't ask for nic solution level
-if nicLevel > 0:
-    nicBase = int(input("Input nicotine solution strength: "))
-    nicResult = round(((nicLevel / nicBase) * batchAmount), 2)
+if nic_level > 0:
+    nic_base = int(input("Input nicotine solution strength: "))
+    nic_result = round(((nic_level / nic_base) * batch_amount), 2)
     #print(nicResult)
 else:
-    nicResult = 0
+    nic_result = 0
 
-# Initiate flavor list
-flavorList = list()
+# Initialize flavorings name list
+flavor_name_list = []
 
 # Ask how many flavors are going to be in this batch
-numberOfFlavors = input("Enter the number of different flavorings you will be using: ")
-print ('Enter flavor percentages:')
+num_flav_list = []
 
+number_of_flavors = input("Enter the number of different flavorings you will be using: ")
+
+for i in range(int(number_of_flavors)):
+    num_flav_list.append(i+1)
+
+#print(num_flav_list)
+
+print ("Enter flavoring names:")
+# Get the flavorings names
+for i in range(len(num_flav_list)):
+    n = input("Flavoring " + str(num_flav_list[i]) + " Name: ")
+    flavor_name_list.append(str(n))
+
+# Initiate flavor percentage list
+flavor_percentage_list = []
+
+print ("Enter flavoring percentage:")
 # Add flavor percentages to flavor list
-for i in range(int(numberOfFlavors)):
-    n = input("Flavor Percentage: ")
-    flavorList.append(int(n))
-    #print ('ARRAY: ',flavorList)
+for i in range(len(flavor_name_list)):
+    n = input("Percentage of " + flavor_name_list[i] + ": ")
+    flavor_percentage_list.append(int(n))
+    #print ('ARRAY: ',flavor_percentage_list)
+#print(flavor_name_list)
+#print(flavor_percentage_list)
 
 # Initiate  list that will hold ML values offlavors
-flavorAmount = list()
+flavor_ml_amount = []
 
 # Calculate ML value to add to batch and add to list
-for i in range(len(flavorList)):
-    x = batchAmount * (flavorList[i] / 100)
-    flavorAmount.append(int(x))
+for i in range(len(flavor_percentage_list)):
+    x = batch_amount * (flavor_percentage_list[i] / 100)
+    flavor_ml_amount.append(int(x))
     #print('ARRAY: ', flavorAmount)
 
-flavorTotal = sum(flavorAmount)
+flavor_total = sum(flavor_ml_amount)
 
-baseTotal = batchAmount - (flavorTotal + nicResult)
+base_total = batch_amount - (flavor_total + nic_result)
 
-print("Start with ", baseTotal, "ML of VG")
-for i in range(len(flavorAmount)):
-    print("Add ", flavorAmount[i], "ML of flavor ", i+1)
-print("Add ", nicResult, "ML of nicotine solution.")
+print("Start with ", base_total, "ML of VG")
+for i in range(len(flavor_ml_amount)):
+    print("Add " + str(flavor_ml_amount[i]) + " ML of " + str(flavor_name_list[i]) )
+print("Add " + str(nic_result) + " ML of nicotine solution.")
