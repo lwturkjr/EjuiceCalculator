@@ -4,7 +4,6 @@
 
 import os
 import sys
-import json
 
 path = os.path.join(sys.path[0])
 
@@ -30,45 +29,43 @@ num_flav_list = []
 
 number_of_flavors = input("Enter the number of different flavorings you will be using: ")
 
-flavor_dictionary = dict()
-count = 0
-while count < int(number_of_flavors):
-    count += 1
-    data = input ("Enter flavoring name and flavoring percentage seperated by \";\" : ")
-    temp = data.split(";")
-    flavor_dictionary[temp[0]] = int(temp[1])
+for i in range(int(number_of_flavors)):
+    num_flav_list.append(i+1)
 
-#print(flavor_dictionary)
-#for key, value in flavor_dictionary.items():
-#    print("Flavoring Name: {}, Flavoring Percentage: {}%".format(key, value))
+#print(num_flav_list)
+
+print ("Enter flavoring names:")
+# Get the flavorings names
+for i in range(len(num_flav_list)):
+    n = input(f"Flavoring {num_flav_list[i]} Name: ")
+    flavor_name_list.append(str(n))
+
+# Initiate flavor percentage list
+flavor_percentage_list = []
+
+print ("Enter flavoring percentage:")
+# Add flavor percentages to flavor list
+for i in range(len(flavor_name_list)):
+    n = input("Percentage of " + flavor_name_list[i] + ": ")
+    flavor_percentage_list.append(int(n))
+    #print ('ARRAY: ',flavor_percentage_list)
+#print(flavor_name_list)
+#print(flavor_percentage_list)
 
 # Initiate  list that will hold ML values offlavors
 flavor_ml_amount = []
 
-for key in flavor_dictionary:
-    flv_percent = batch_amount * (flavor_dictionary[key] / 100)
-    flavor_ml_amount.append(flv_percent)
+# Calculate ML value to add to batch and add to list
+for i in range(len(flavor_percentage_list)):
+    x = batch_amount * (flavor_percentage_list[i] / 100)
+    flavor_ml_amount.append(int(x))
+    #print('ARRAY: ', flavorAmount)
 
 flavor_total = sum(flavor_ml_amount)
 
 base_total = batch_amount - (flavor_total + nic_result)
 
-flav_name_list = list(flavor_dictionary.keys())
-
-#print(flav_name_list)
-
-print(f"Start with {base_total} ML of VG")
+print("Start with ", base_total, "ML of VG")
 for i in range(len(flavor_ml_amount)):
-    print(f"Add {int(flavor_ml_amount[i])} ML of  {flav_name_list[i]}")
+    print("Add " + str(flavor_ml_amount[i]) + " ML of " + str(flavor_name_list[i]) )
 print("Add " + str(nic_result) + " ML of nicotine solution.")
-
-save = input("Do you want to save this flavor? (y/N): ")
-if save.lower() == "y":
-    flavor_name = input("What do you want to save this flavor as? ")
-else:
-    exit()
-
-filename = f"{path}/saved_recipes/{flavor_name}.json"
-with open(filename, "w+") as f:
-    json.dump(flavor_dictionary, f)
-
