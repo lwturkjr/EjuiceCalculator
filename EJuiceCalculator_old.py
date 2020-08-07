@@ -50,7 +50,7 @@ while count < int(number_of_flavors):
 #for key, value in flavor_dictionary.items():
 #    print("Flavoring Name: {}, Flavoring Percentage: {}%".format(key, value))
 
-# Initiate  list that will hold ML values offlavors
+# Initiate  list that will hold ML values of flavors
 flavor_ml_amount = []
 
 for key in flavor_dictionary:

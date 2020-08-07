@@ -14,7 +14,7 @@ def load_saved_recipe():
     for current_file in current_dir.iterdir():
         print(current_file)
     
-    recipe_name = input("Which recipe do you want to load? Just enter the (file_name). ")
+    recipe_name = input("Which recipe do you want to load? (Just enter the file_name): ")
     recipe_path = f"{current_dir}/{recipe_name}.json"
 
     with open(recipe_path) as json_file:
@@ -38,8 +38,12 @@ def start_new_recipe():
     
     return flavor_dictionary
 
-def nic_level():
-    return
+def save_recipe():
+    flavor_name = input("What do you want to save this flavor as? ")
+    filename = f"{path}/saved_recipes/{flavor_name}.json"
+    with open(filename, "w+") as f:
+        json.dump(recipe, f)
+    print(f"Recipe Saved to {filename}.")
 
 load_recipe = input("Do you want to open a saved recipe? (y/N): ")
 if load_recipe.lower() == "y":
@@ -68,9 +72,7 @@ for key in recipe:
     flv_percent = batch_amount * (recipe[key] / 100)
     flavor_ml_amount.append(flv_percent)
 
-flavor_total = sum(flavor_ml_amount)
-
-base_total = batch_amount - (flavor_total + nic_result)
+base_total = batch_amount - (sum(flavor_ml_amount) + nic_result)
 
 flav_name_list = list(recipe.keys())
 
@@ -79,12 +81,9 @@ for i in range(len(flavor_ml_amount)):
     print(f"Add {int(flavor_ml_amount[i])} ML of  {flav_name_list[i]}")
 print("Add " + str(nic_result) + " ML of nicotine solution.")
 
-save = input("Do you want to save this flavor? (y/N): ")
+save = input("Do you want to save this recipe? (y/N): ")
 if save.lower() == "y":
-    flavor_name = input("What do you want to save this flavor as? ")
+    save_recipe()
 else:
     exit()
-
-filename = f"{path}/saved_recipes/{flavor_name}.json"
-with open(filename, "w+") as f:
-    json.dump(recipe, f)
+    
