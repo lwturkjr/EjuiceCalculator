@@ -78,7 +78,7 @@ flav_name_list = list(recipe.keys())
 
 print(f"Start with {base_total} ML of VG")
 for i in range(len(flavor_ml_amount)):
-    print(f"Add {int(flavor_ml_amount[i])} ML of  {flav_name_list[i]}")
+    print(f"Add {round(flavor_ml_amount[i], 2)} ML of  {flav_name_list[i]}")
 print("Add " + str(nic_result) + " ML of nicotine solution.")
 
 save = input("Do you want to save this recipe? (y/N): ")
