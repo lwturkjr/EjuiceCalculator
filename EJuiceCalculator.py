@@ -14,10 +14,11 @@ def load_saved_recipe():
     for current_file in current_dir.iterdir():
         print(current_file)
     
-    recipe_name = input("Which recipe do you want to load? (Just enter the file_name): ")
-    recipe_path = f"{current_dir}/{recipe_name}.json"
+    print(f"Just enter the recipe name, not the full path, and you don't need to include the .json extension")
+    recipe_name = input("Which recipe do you want to load?: ")
+    recipe_path = f"{current_dir}/{recipe_name.title()}.json"
 
-    with open(recipe_path) as json_file:
+    with open(recipe_path, "r+") as json_file:
         recipe = json.load(json_file)
 
         return recipe
@@ -40,7 +41,7 @@ def start_new_recipe():
 
 def save_recipe():
     flavor_name = input("What do you want to save this flavor as? ")
-    filename = f"{path}/saved_recipes/{flavor_name}.json"
+    filename = f"{path}/saved_recipes/{flavor_name.title()}.json"
     with open(filename, "w+") as f:
         json.dump(recipe, f)
     print(f"Recipe Saved to {filename}.")
@@ -53,7 +54,7 @@ else:
     recipe = start_new_recipe()
 
 # Get batch amount
-batch_amount = int(input("Input the total amount of E-Juice you wish to make (ML): "))
+batch_amount = int(input("\nInput the total amount of E-Juice you wish to make (ML): "))
 
 # Get desired nic level
 nic_level = int(input("Input desired nicotine strength of the E-Juice: "))
@@ -77,16 +78,21 @@ base_total = batch_amount - (sum(flavor_ml_amount) + nic_result)
 
 flav_name_list = list(recipe.keys())
 
-print(f"Start with {base_total} ML of VG")
+print(f"\n")
 for i in range(len(flavor_ml_amount)):
-    print(f"Add {round(flavor_ml_amount[i], 2)} ML of  {flav_name_list[i]}")
-print("Add " + str(nic_result) + " ML of nicotine solution.")
+    print(f"{flav_name_list[i]}: {round(flavor_ml_amount[i], 2)}ML")
+print(f"Nicotine solution: {nic_result}ML")
+print(f"VG {base_total}ML")
+
+print("\nFlavoring percentage: ")
+for key, value in recipe.items():
+    print(f"Flavoring {key}: {value}%")
 
 if load_recipe.lower() == "y":
     input("Press any key to exit...")
     exit()
 
-save = input("Do you want to save this recipe? (y/N): ")
+save = input("\nDo you want to save this recipe? (y/N): ")
 if save.lower() == "y":
     save_recipe()
 else:
