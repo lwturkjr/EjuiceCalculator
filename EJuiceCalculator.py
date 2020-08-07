@@ -78,13 +78,13 @@ base_total = batch_amount - (sum(flavor_ml_amount) + nic_result)
 
 flav_name_list = list(recipe.keys())
 
-print(f"\n")
+print(f"\nBatch Size {batch_amount}ML")
 for i in range(len(flavor_ml_amount)):
     print(f"{flav_name_list[i]}: {round(flavor_ml_amount[i], 2)}ML")
 print(f"Nicotine solution: {nic_result}ML")
 print(f"VG {base_total}ML")
 
-print("\nFlavoring percentage: ")
+print("\nFlavoring percentages: ")
 for key, value in recipe.items():
     print(f"Flavoring {key}: {value}%")
 
