@@ -8,44 +8,13 @@ import json
 import pathlib
 
 path = os.path.join(sys.path[0])
+load_recipe = input("Do you want to open a saved recipe? (y/N)")
 
-def load_saved_recipe():
+if load_recipe.lower() == "y":
     current_dir = pathlib.Path(f"{path}/saved_recipes")
     for current_file in current_dir.iterdir():
         print(current_file)
-    
-    recipe_name = input("Which recipe do you want to load? Just enter the (file_name). ")
-    recipe_path = f"{current_dir}/{recipe_name}.json"
-
-    with open(recipe_path) as json_file:
-        recipe = json.load(json_file)
-
-        return recipe
-    
-
-def start_new_recipe():
-    number_of_flavorings = input("Enter the number of different flavorings you will be using: ")
-
-    flavor_dictionary = dict()
-    count = 0
-    while count < int(number_of_flavorings):
-        count += 1
-        flavoring_name = input("Enter flavoring name: ")
-        flavoring_percentage = input(f"What percentage of {flavoring_name} do you want recpie to have? : ")
-        data = f"{flavoring_name}:{flavoring_percentage}"
-        temp = data.split(":")
-        flavor_dictionary[temp[0]] = int(temp[1])
-    
-    return flavor_dictionary
-
-def nic_level():
-    return
-
-load_recipe = input("Do you want to open a saved recipe? (y/N): ")
-if load_recipe.lower() == "y":
-    recipe = load_saved_recipe()
-else:
-    recipe = start_new_recipe()
+        
 
 # Get batch amount
 batch_amount = int(input("Input the total amount of E-Juice you wish to make (ML): "))
@@ -61,18 +30,40 @@ if nic_level > 0:
 else:
     nic_result = 0
 
-# Initiate  list that will hold ML values of flavors
+# Initialize flavorings name list
+flavor_name_list = []
+
+# Ask how many flavors are going to be in this batch
+num_flav_list = []
+
+number_of_flavors = input("Enter the number of different flavorings you will be using: ")
+
+flavor_dictionary = dict()
+count = 0
+while count < int(number_of_flavors):
+    count += 1
+    data = input ("Enter flavoring name and flavoring percentage seperated by \";\" : ")
+    temp = data.split(";")
+    flavor_dictionary[temp[0]] = int(temp[1])
+
+#print(flavor_dictionary)
+#for key, value in flavor_dictionary.items():
+#    print("Flavoring Name: {}, Flavoring Percentage: {}%".format(key, value))
+
+# Initiate  list that will hold ML values offlavors
 flavor_ml_amount = []
 
-for key in recipe:
-    flv_percent = batch_amount * (recipe[key] / 100)
+for key in flavor_dictionary:
+    flv_percent = batch_amount * (flavor_dictionary[key] / 100)
     flavor_ml_amount.append(flv_percent)
 
 flavor_total = sum(flavor_ml_amount)
 
 base_total = batch_amount - (flavor_total + nic_result)
 
-flav_name_list = list(recipe.keys())
+flav_name_list = list(flavor_dictionary.keys())
+
+#print(flav_name_list)
 
 print(f"Start with {base_total} ML of VG")
 for i in range(len(flavor_ml_amount)):
@@ -87,4 +78,5 @@ else:
 
 filename = f"{path}/saved_recipes/{flavor_name}.json"
 with open(filename, "w+") as f:
-    json.dump(recipe, f)
+    json.dump(flavor_dictionary, f)
+
