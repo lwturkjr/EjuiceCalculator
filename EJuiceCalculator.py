@@ -81,6 +81,9 @@ for i in range(len(flavor_ml_amount)):
     print(f"Add {round(flavor_ml_amount[i], 2)} ML of  {flav_name_list[i]}")
 print("Add " + str(nic_result) + " ML of nicotine solution.")
 
+if load_recipe.lower() == "y":
+    exit()
+    
 save = input("Do you want to save this recipe? (y/N): ")
 if save.lower() == "y":
     save_recipe()
