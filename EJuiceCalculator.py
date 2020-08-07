@@ -44,6 +44,7 @@ def save_recipe():
     with open(filename, "w+") as f:
         json.dump(recipe, f)
     print(f"Recipe Saved to {filename}.")
+    input("Press any key to exit...")
 
 load_recipe = input("Do you want to open a saved recipe? (y/N): ")
 if load_recipe.lower() == "y":
@@ -82,11 +83,13 @@ for i in range(len(flavor_ml_amount)):
 print("Add " + str(nic_result) + " ML of nicotine solution.")
 
 if load_recipe.lower() == "y":
+    input("Press any key to exit...")
     exit()
-    
+
 save = input("Do you want to save this recipe? (y/N): ")
 if save.lower() == "y":
     save_recipe()
 else:
+    input("Press any key to exit...")
     exit()
     
