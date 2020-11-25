@@ -1,0 +1,32 @@
+#:import Window kivy.core.window.Window
+
+<MainMenu>:
+    name: "mainmenu"
+    id: mainmenuscreen
+    md_bg_color: app.md_bg_color
+
+    BoxLayout:
+        id: BoxLayout
+        orientation: "vertical"
+        padding: 80
+
+        AnchorLayout:
+            id: anchor_label
+            size_hint: (1, 0.3)
+            anchor_x: "center"
+            anchor_y: "center"
+
+            MDLabel:
+                text: "E-Juice Calculator"
+                font_name: app.app_font
+                theme_text_color: "Custom"
+                text_color: app.title_text_color
+                halign: "center"
+                valign: "center"
+                font_size: str((Windows.height/720)*60) + "sp"
+        
+        AnchorLayout:
+            id: anchor_buttons
+            size_hint: (1, 1)
+            anchor_x: "center"
+            anchor_y: "center"
