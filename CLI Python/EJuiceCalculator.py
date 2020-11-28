@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 # Basic Command Line Python E-Juice Calculator
-# I will eventually make a GUI for this with tkinter, hopefully
+# I will eventually make a GUI for this, hopefully
 
 import os
 import sys
