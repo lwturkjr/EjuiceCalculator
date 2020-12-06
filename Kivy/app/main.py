@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 import os
 import sys
 import json
@@ -16,8 +17,14 @@ Config.set("kivy","window_icon","icon.ico")
 
 path = os.path.join(sys.path[0])
 
-class MainWindow(Screen):
-    pass
+class MainMenu(Screen):
+    mainmenu = ObjectProperty(None)
+    settings = ObjectProperty(None)
+    calculator = ObjectProperty(None)
+    savedrecipes = ObjectProperty(None)
+    current = ""
+
+
 
 class CalcWindow(Screen):
     pass
@@ -33,15 +40,16 @@ class WindowManager(ScreenManager):
 
 kv = Builder.load_file("my.kv")
 wm = WindowManager()
+saved_recipes_dir = f"{path}/saved_recipes/"
 
-screens = [MainWindow(name="main"), CalcWindow(name="calc"),SavedRecipes(name="saved"), Settings(name="settings")]
+screens = [MainMenu(name="main"), CalcWindow(name="calc"),SavedRecipes(name="saved"), Settings(name="settings")]
 for screen in screens:
     wm.add_widget(screen)
 
 
-class EJuice_Calculator(App):
+class EJuiceWorkshop(App):
     def build(self):
         return wm
 
 if __name__ == "__main__":
-    EJuice_Calculator().run()
+    EJuiceWorkshop().run()
