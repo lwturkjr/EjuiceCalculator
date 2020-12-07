@@ -10,20 +10,22 @@ import pathlib
 path = os.path.join(sys.path[0])
 
 def load_saved_recipe():
-    current_dir = pathlib.Path(f"{path}/saved_recipes")
-    for current_file in current_dir.iterdir():
-        print(current_file)
-    
-    print(f"Just enter the recipe name, not the full path, and you don't need to include the .json extension")
+    saved_recipes = pathlib.Path(f"{path}/saved_recipes/recipes.json")
+
+    with open(saved_recipes, "r+") as json_file:
+        saved_recipes = json.load(json_file)
+        print("Saved Recipes:")
+        for entry in saved_recipes:
+            print(entry)
+
     recipe_name = input("Which recipe do you want to load?: ")
-    recipe_path = f"{current_dir}/{recipe_name.title()}.json"
 
-    with open(recipe_path, "r+") as json_file:
-        recipe = json.load(json_file)
+    recipe = saved_recipes[recipe_name]
 
-        return recipe
+    json_file.close()
+
+    return recipe
     
-
 def start_new_recipe():
     number_of_flavorings = input("Enter the number of different flavorings you will be using: ")
 
@@ -40,11 +42,17 @@ def start_new_recipe():
     return flavor_dictionary
 
 def save_recipe():
+    saved_recipes = pathlib.Path(f"{path}/saved_recipes/recipes.json")
     flavor_name = input("What do you want to save this flavor as? ")
-    filename = f"{path}/saved_recipes/{flavor_name.title()}.json"
-    with open(filename, "w+") as f:
-        json.dump(recipe, f)
-    print(f"Recipe Saved to {filename}.")
+    entry = {flavor_name: recipe}
+
+    with open(saved_recipes, "r+") as json_file:
+        data = json.load(json_file)
+        data.update(entry)
+        json_file.seek(0)
+        json.dump(data, json_file, indent=4)
+    print("Recipe Saved.")
+    json_file.close()
     input("Press any key to exit...")
 
 load_recipe = input("Do you want to open a saved recipe? (y/N): ")
