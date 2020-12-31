@@ -2,31 +2,31 @@
 #:import Window kivy.core.window.Window
 
 <MainMenu>:
-    name: 'mainmenu'
+    name: "mainmenu"
     id: mainmenuscreen
 
     BoxLayout:
         id: box
-        orientation: 'vertical'
+        orientation: "vertical"
         padding: 80
 
         AnchorLayout:
             id: anchor_label
             size_hint: (1, 0.3)
-            anchor_x: 'center'
-            anchor_y: 'center'
+            anchor_x: "center"
+            anchor_y: "center"
 
             Label:
-                text: 'E-Juice Workshop'
-                halign: 'center'
-                valign: 'center'
-                font_size: str((Window.height/720)*60) + 'sp'
+                text: "E-Juice Workshop"
+                halign: "center"
+                valign: "center"
+                font_size: str((Window.height/720)*60) + "sp"
 
         AnchorLayout:
             id: anchor_buttons
             size_hint: (1, 1)
-            anchor_x: 'center'
-            anchor_y: 'center'
+            anchor_x: "center"
+            anchor_y: "center"
 
             GridLayout:
                 id: grid
@@ -35,43 +35,38 @@
                 spacing: (10*(Window.width/Window.height)**3, 40)
 
                 Button:
-                    text: 'Brew'
-                    tooltip_text: 'New E-Juice Recipe'
+                    text: "Brew"
+                    tooltip_text: "New E-Juice Recipe"
                     on_release:
-                        app.switch_screen('brew', 'left')
+                        app.switch_screen("brew", "left")
                         self.canvas_opacity = 0
                         Window.remove_widget(self.tooltip)
-                        try: self.schedule.cancel()
-                        except BaseException: pass
 
                 Button:
-                    text: 'Saved Recipes'
-                    tooltip_text: 'Load Saved Recipes'
+                    text: "Saved Recipes"
+                    tooltip_text: "Load Saved Recipes"
                     on_release:
-                        app.switch_screen('saved_recipes', 'bottom')
+                        app.switch_screen("saved_recipes", "bottom")
                         self.canvas_opacity = 0
                         Window.remove_widget(self.tooltip)
-                        try: self.schedule.cancel()
-                        except BaseException: pass
+                        
                 
-                Button: # This is where available flavorings will be stored
-                    text: 'Avialable Flavorings'
-                    tooltip_text: 'List of Avialable Flavorings'
+                Button: 
+                    text: "Avialable Flavorings"
+                    tooltip_text: "List of Avialable Flavorings"
                     on_release:
-                        app.switch_screen('saved_recipes', 'bottom')
+                        app.switch_screen("saved_recipes", "bottom")
                         self.canvas_opacity = 0
                         Window.remove_widget(self.tooltip)
-                        try: self.schedule.cancel()
-                        except BaseException: pass
+                        
                 
                 Button:
-                    text: 'Settings'
-                    tooltip_text: 'Modify App Settings'
+                    text: "Settings"
+                    tooltip_text: "Modify App Settings"
                     on_release:
-                        app.switch_screen('settings', 'right')
+                        app.switch_screen("settings", "right")
                         self.canvas_opacity = 0
                         Window.remove_widget(self.tooltip)
-                        try: self.schedule.cancel()
-                        except BaseException: pass
+                        
                 
                
