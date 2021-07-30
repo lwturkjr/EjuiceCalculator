@@ -1,10 +1,17 @@
 #:kivy 2.0.0
 #:import Window kivy.core.window.Window
 
+WindowManager:
+    MainMenu:
+    CalcWindow:
+    SavedRecipes:
+    AvilableFlavors:
+    SettingsScreen:
+
 <MainMenu>:
     name: "mainmenu"
     id: mainmenuscreen
-
+    
     BoxLayout:
         id: box
         orientation: "vertical"
@@ -30,43 +37,199 @@
 
             GridLayout:
                 id: grid
-                cols: 4
+                cols: 2
+                rows: 2
                 adaptive_size: True
                 spacing: (10*(Window.width/Window.height)**3, 40)
 
                 Button:
                     text: "Brew"
                     tooltip_text: "New E-Juice Recipe"
-                    on_release:
-                        app.switch_screen("brew", "left")
-                        self.canvas_opacity = 0
-                        Window.remove_widget(self.tooltip)
+                    on_release: 
+                        app.root.current = "calc"
+                        root.manager.transition.direction = "right"
 
                 Button:
                     text: "Saved Recipes"
                     tooltip_text: "Load Saved Recipes"
-                    on_release:
-                        app.switch_screen("saved_recipes", "bottom")
-                        self.canvas_opacity = 0
-                        Window.remove_widget(self.tooltip)
-                        
-                
+                    on_release: 
+                        app.root.current = "recipes"
+                        root.manager.transition.direction = "left"
+                       
                 Button: 
                     text: "Avialable Flavorings"
                     tooltip_text: "List of Avialable Flavorings"
-                    on_release:
-                        app.switch_screen("saved_recipes", "bottom")
-                        self.canvas_opacity = 0
-                        Window.remove_widget(self.tooltip)
+                    on_release: 
+                        app.root.current = "flavor"
+                        root.manager.transition.direction = "right"
+                       
                         
-                
                 Button:
                     text: "Settings"
                     tooltip_text: "Modify App Settings"
-                    on_release:
-                        app.switch_screen("settings", "right")
-                        self.canvas_opacity = 0
-                        Window.remove_widget(self.tooltip)
+                    on_release: 
+                        app.root.current = "settings"
+                        root.manager.transition.direction = "left"
                         
-                
-               
+<CalcWindow>:
+    name: "calc"
+    id: calc_screen
+
+    BoxLayout:
+        id: box
+        orientation: "vertical"
+        padding: 80
+
+        AnchorLayout:
+            id: anchor_label
+            size_hint: (1, 0.3)
+            anchor_x: "center"
+            anchor_y: "center"
+
+            Label:
+                text: "Calculator"
+                halign: "center"
+                valign: "center"
+                font_size: str((Window.height/720)*60) + "sp"
+
+        AnchorLayout:
+            id: anchor_buttons
+            size_hint: (1, 1)
+            anchor_x: "center"
+            anchor_y: "center"
+
+            GridLayout:
+                id: grid
+                cols: 2
+                rows: 2
+                adaptive_size: True
+                spacing: (10*(Window.width/Window.height)**3, 40)
+
+                Button:
+                    text: "Back"
+                    tooltip_text: "Back to main menu"
+                    on_release: 
+                        app.root.current = "mainmenu"
+                        root.manager.transition.direction = "left"
+
+<SavedRecipes>:
+    name: "recipes"
+    id: recipe_screen
+
+    BoxLayout:
+        id: box
+        orientation: "vertical"
+        padding: 80
+
+        AnchorLayout:
+            id: anchor_label
+            size_hint: (1, 0.3)
+            anchor_x: "center"
+            anchor_y: "center"
+
+            Label:
+                text: "Saved Recipes"
+                halign: "center"
+                valign: "center"
+                font_size: str((Window.height/720)*60) + "sp"
+
+        AnchorLayout:
+            id: anchor_buttons
+            size_hint: (1, 1)
+            anchor_x: "center"
+            anchor_y: "center"
+
+            GridLayout:
+                id: grid
+                cols: 2
+                rows: 2
+                adaptive_size: True
+                spacing: (10*(Window.width/Window.height)**3, 40)
+
+                Button:
+                    text: "Back"
+                    tooltip_text: "Back to main menu"
+                    on_release: 
+                        app.root.current = "mainmenu"
+                        root.manager.transition.direction = "right"
+
+<AvilableFlavors>:
+    name: "flavor"
+    id: flavor_screen
+
+    BoxLayout:
+        id: box
+        orientation: "vertical"
+        padding: 80
+
+        AnchorLayout:
+            id: anchor_label
+            size_hint: (1, 0.3)
+            anchor_x: "center"
+            anchor_y: "center"
+
+            Label:
+                text: "Avilable Flavorings"
+                halign: "center"
+                valign: "center"
+                font_size: str((Window.height/720)*60) + "sp"
+
+        AnchorLayout:
+            id: anchor_buttons
+            size_hint: (1, 1)
+            anchor_x: "center"
+            anchor_y: "center"
+
+            GridLayout:
+                id: grid
+                cols: 2
+                rows: 2
+                adaptive_size: True
+                spacing: (10*(Window.width/Window.height)**3, 40)
+
+                Button:
+                    text: "Back"
+                    tooltip_text: "Back to main menu"
+                    on_release: 
+                        app.root.current = "mainmenu"
+                        root.manager.transition.direction = "left"
+<SettingsScreen>:
+    name: "settings"
+    id: settings_screen
+
+    BoxLayout:
+        id: box
+        orientation: "vertical"
+        padding: 80
+
+        AnchorLayout:
+            id: anchor_label
+            size_hint: (1, 0.3)
+            anchor_x: "center"
+            anchor_y: "center"
+
+            Label:
+                text: "App Settings"
+                halign: "center"
+                valign: "center"
+                font_size: str((Window.height/720)*60) + "sp"
+
+        AnchorLayout:
+            id: anchor_buttons
+            size_hint: (1, 1)
+            anchor_x: "center"
+            anchor_y: "center"
+
+            GridLayout:
+                id: grid
+                cols: 2
+                rows: 2
+                adaptive_size: True
+                spacing: (10*(Window.width/Window.height)**3, 40)
+
+                Button:
+                    text: "Back"
+                    tooltip_text: "Back to main menu"
+                    on_release: 
+                        app.root.current = "mainmenu"
+                        root.manager.transition.direction = "right"
